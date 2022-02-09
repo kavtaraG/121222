@@ -8,10 +8,10 @@ const meteoFunction = async function obj(){
         }
         meteo('Location: ', url.body.data[0].features[0].place_name);
     }catch(error){
-        if(error === 404){
-            console.log('URL is incorrect');
-        }else{
+        if(error !== 404){
             console.log('URL is not responsible');
+        }else{
+            console.log('Error 404');
         }
         
     }
