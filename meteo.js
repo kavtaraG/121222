@@ -2,11 +2,17 @@ const axios = require('axios');
 
 const meteoFunction = async function obj(){
     try{
-        const url = await axios.get('https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1Ijoia2F2dGFyYWciLCJhIjoiY2t5eWQxMG9yMHI1ZDJ4czM1ZG13MHA2ZyJ9.9__DCmzZQRsb2zxnJpek3g&limit=1');
-        const meteo = (type, {place_name})=>{
-            console.log(type, place_name);
+        const url = await axios.get('http://api.weatherstack.com/current?access_key=c91ec3eb66588dae3271b83b67cf1f86&query=41.7151,44.8271&units=m');
+        const meteo = (type, {country, name})=>{
+            console.log(type, country, name);
         }
-        meteo('Location: ', url.body.data[0].features[0].place_name);
+        const celsius = (type, {temperature, weather_descriptions})=>{
+            console.log(type, temperature, weather_descriptions[0]);
+        }
+
+        meteo('Location: ', url.data.location);
+        celsius('Current Temperature: ', url.data.current);
+        
     }catch(error){
         if(error !== 404){
             console.log('URL is not responsible');
